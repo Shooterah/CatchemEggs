@@ -4,6 +4,7 @@
 #include <MLV/MLV_all.h>
 #include "init.h"
 #include "game.h"
+#include "classement.h"
 
 int menu(){
 
@@ -174,7 +175,19 @@ int menu(){
 
       if(x >= 75 && x <= 372 && y >= 210 && y <= 280){
 
+      	/* Supprime le background qui a été crée */
+  
+	    MLV_free_image(background); 
 
+	   	/* Ferme la fenêtre */
+  
+	  	MLV_free_window();
+
+	    classement();
+
+	   	MLV_free_window();
+
+	    return 1;
 
       }
 
