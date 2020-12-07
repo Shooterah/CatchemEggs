@@ -17,3 +17,11 @@ Le jeu 1 Joueur fonctionne a 99%.
 
 ### V5
 Le jeu 1 Joueur fonctionne a 100% et choix rejouer ou menu.
+
+### V6
+Le jeu 2 Joueur fonctionne a 100% et choix rejouer ou menu.
+
+### V7
+Ajout de la page de classement ainsi que lecture d'un fichier de sauvegarde.
+
+
