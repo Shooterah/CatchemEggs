@@ -122,7 +122,7 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 
     		/* Si hauteur des main d'un des 2 joueurs */
 
-    			if(x_Oeuf[0] == coord[0] && x_Oeuf[1] == coord[1] && i == 615){ /* Si les 2 joueurs ont l'oeuf */
+    			if(x_Oeuf[0] == coord[0] && x_Oeuf[1] == coord[1] && i >= 615 && i <= 635){ /* Si les 2 joueurs ont l'oeuf */
 
     				joueur1.score = joueur1.score + 5;
     				joueur2.score = joueur2.score + 5;
@@ -134,7 +134,7 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	     			sprintf(score2, "%d", joueur2.score);
 	     			sprintf(fail2, "%d", joueur2.fail);
 
-	     			if(tmp == 100){
+	     			if(tmp >= 100){
 	        			speed = speed + 1;
 	        			tmp = 0;
 	     			}
@@ -143,7 +143,7 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	     			i = 0;
     			}
 
-    			else if(x_Oeuf[0] == coord[0] && x_Oeuf[1] != coord[1] && i == 615){ /* Si seulement joueur 1 a l'oeuf*/
+    			else if(x_Oeuf[0] == coord[0] && x_Oeuf[1] != coord[1] && i >= 615 && i <= 635){ /* Si seulement joueur 1 a l'oeuf*/
 
     				joueur1.score = joueur1.score + 5;
     				tmp = tmp + 5;
@@ -154,7 +154,7 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	     			sprintf(score2, "%d", joueur2.score);
 	     			sprintf(fail2, "%d", joueur2.fail);
 
-	     			if(tmp == 100){
+	     			if(tmp >= 100){
 	        			speed = speed + 1;
 	        			tmp = 0;
 	     			}
@@ -163,7 +163,7 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	     			i = 0;
     			}
 
-    			else if(x_Oeuf[0] != coord[0] && x_Oeuf[1] == coord[1] && i == 615){ /* Si seulement joueur 2 a l'oeuf*/
+    			else if(x_Oeuf[0] != coord[0] && x_Oeuf[1] == coord[1] && i >= 615 && i <= 635){ /* Si seulement joueur 2 a l'oeuf*/
 
     				joueur2.score = joueur2.score + 5;
     				tmp = tmp + 5;
@@ -174,7 +174,7 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	     			sprintf(score2, "%d", joueur2.score);
 	     			sprintf(fail2, "%d", joueur2.fail);
 
-	     			if(tmp == 100){
+	     			if(tmp >= 100){
 	        			speed = speed + 1;
 	        			tmp = 0;
 	     			}
@@ -183,11 +183,18 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	     			i = 0;
     			}
 
-    			else if(x_Oeuf[0] != coord[0] && x_Oeuf[1] != coord[1] && i == 615){
+    			else if(x_Oeuf[0] != coord[0] && x_Oeuf[1] != coord[1] && i >= 615 && i <= 635){
 
     				joueur1.fail = joueur1.fail - 1;
     				joueur2.fail = joueur2.fail - 1;
+
+            sprintf(score1, "%d", joueur1.score);
+            sprintf(fail1, "%d", joueur1.fail);
+            sprintf(score2, "%d", joueur2.score);
+            sprintf(fail2, "%d", joueur2.fail);
+
     				posOeuf2(x_Oeuf);
+
     				i = 0;
 
     			}
@@ -203,8 +210,8 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 
       			MLV_draw_image(background, 0, 0);
 
-      			MLV_draw_text(160, 500, score1, MLV_COLOR_WHITE);
-      			MLV_draw_text(480, 500, score2, MLV_COLOR_WHITE);
+      			MLV_draw_text(160, 600, score1, MLV_COLOR_WHITE);
+      			MLV_draw_text(480, 600, score2, MLV_COLOR_WHITE);
        
       			MLV_actualise_window();
 
@@ -222,8 +229,6 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 
 	       				if(xs >= 0 && xs <= 130 && ys >= 673 && ys <= 720){
 
-	         				sortie_jeu = 1; /* On retourne au menu */
-
 	         				sortie = 1;
 	     
 	         				xs = 750;
@@ -231,6 +236,8 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	         				ys = 750;
 
 	         				test = 1;
+
+                  return 1; /* On retourne au menu */
 
 	       				}
 
@@ -248,6 +255,11 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	         				speed = 0;
 	         				joueur1.fail = 5;
 	         				joueur2.fail = 5;
+
+                  sprintf(score1, "%d", joueur1.score);
+                  sprintf(fail1, "%d", joueur1.fail);
+                  sprintf(score2, "%d", joueur2.score);
+                  sprintf(fail2, "%d", joueur2.fail);
 	     
 	         				test = 1;
 	         				sortie_jeu = 0;
@@ -269,8 +281,8 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 
       			MLV_draw_image(background, 0, 0);
 
-      			MLV_draw_text(160, 500, score1, MLV_COLOR_WHITE);
-      			MLV_draw_text(160 + 320, 500, score2, MLV_COLOR_WHITE);
+      			MLV_draw_text(160, 600, score1, MLV_COLOR_WHITE);
+      			MLV_draw_text(480, 600, score2, MLV_COLOR_WHITE);
        
       			MLV_actualise_window();
 
@@ -288,8 +300,6 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 
 	       				if(xs >= 0 && xs <= 130 && ys >= 673 && ys <= 720){
 
-	         				sortie_jeu = 1; /* On retourne au menu */
-
 	         				sortie = 1;
 	     
 	         				xs = 750;
@@ -297,6 +307,8 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	         				ys = 750;
 
 	         				test = 1;
+
+                  return 1; /* On retourne au menu */
 
 	       				}
 
@@ -314,6 +326,11 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	         				speed = 0;
 	         				joueur1.fail = 5;
 	         				joueur2.fail = 5;
+
+                  sprintf(score1, "%d", joueur1.score);
+                  sprintf(fail1, "%d", joueur1.fail);
+                  sprintf(score2, "%d", joueur2.score);
+                  sprintf(fail2, "%d", joueur2.fail);
 	     
 	         				test = 1;
 	         				sortie_jeu = 0;
@@ -335,8 +352,8 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 
       			MLV_draw_image(background, 0, 0);
 
-      			MLV_draw_text(160, 500, score1, MLV_COLOR_WHITE);
-      			MLV_draw_text(160 + 320, 500, score2, MLV_COLOR_WHITE);
+      			MLV_draw_text(160, 600, score1, MLV_COLOR_WHITE);
+      			MLV_draw_text(480, 600, score2, MLV_COLOR_WHITE);
        
       			MLV_actualise_window();
 
@@ -354,8 +371,6 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 
 	       				if(xs >= 0 && xs <= 130 && ys >= 673 && ys <= 720){
 
-	         				sortie_jeu = 1; /* On retourne au menu */
-
 	         				sortie = 1;
 	     
 	         				xs = 750;
@@ -363,6 +378,8 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	         				ys = 750;
 
 	         				test = 1;
+
+                  return 1; /* On retourne au menu */
 
 	       				}
 
@@ -380,6 +397,11 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	         				speed = 0;
 	         				joueur1.fail = 5;
 	         				joueur2.fail = 5;
+
+                  sprintf(score1, "%d", joueur1.score);
+                  sprintf(fail1, "%d", joueur1.fail);
+                  sprintf(score2, "%d", joueur2.score);
+                  sprintf(fail2, "%d", joueur2.fail);
 	     
 	         				test = 1;
 	         				sortie_jeu = 0;
