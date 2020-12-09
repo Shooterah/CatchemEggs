@@ -9,9 +9,10 @@ void classement(){
 
 	int sortie = 0;
 	int x, y, j;
-	int i = 0;
+	int i = 120;
 	char c;
-	char data[100] = {0};
+	char data[100];
+  int j = 0;
 
 	FILE* fichier;
 
@@ -39,6 +40,55 @@ void classement(){
   
   	MLV_actualise_window();
 
+    /******************** Les données *************************/
+
+    fichier = fopen("save.txt", "r");
+
+      if(!fichier){
+
+        MLV_actualise_window();
+
+        sortie = 1;
+
+        return;
+
+      }
+
+      else{
+
+        while(j <= 3){
+
+          while(fgets(data, 255, fichier) != NULL){
+
+          i = i + 50;
+
+           MLV_draw_text(150, i, data, MLV_COLOR_BLACK);
+
+           j++;
+
+          }
+
+       }
+
+       i = 500;
+
+       while(fgets(data, 255, fichier) != NULL){
+
+         i = i + 50;
+
+         MLV_draw_text(150, i, data, MLV_COLOR_BLACK);
+
+        }
+
+        MLV_actualise_window();
+
+      }
+
+
+
+
+    /******************** La souris *************************/
+
   	do{
 
   		/* Position de la souris */
@@ -58,54 +108,6 @@ void classement(){
       		}
 
     	}
-
-    	/******************** Les données *************************/
-
-  		fichier = fopen("save.txt", "r");
-
-  		do{
-
-  			c = fgetc(fichier); /* on lit le premier caractère */
-
-  			if(c == "*"){
-
-  				data[i] = fgetc(fichier);
-
-  				while(data[i] != "§"){ /* Tant que != § */
-
-  					i++; 
-  				}
-
-  				i++; /* § */
-
-  				data[i] = " ";
-  				i++;
-  				data[i] = " ";
-  				i++;
-  				data[i] = " ";
-  				i++;
-  				data[i] = " ";
-  				i++;
-  				data[i] = " ";
-  				i++;
-
-  				while(data[i] = fgetc(fichier) != "\n"){ /* Tant que != § */
-
-  					i++; 
-  				}
-  			}
-
-  			/* Un score entier a été lu */
-
-  			MLV_draw_text(80, 200, data, MLV_COLOR_WHITE);
-
-  			for(j=0; j<= i; j++){
-  				data[j] = "0";
-  			}
-
-  			i = 0;
-
-  		}while(c != EOF);
 
   	}while(!sortie);
 

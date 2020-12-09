@@ -135,8 +135,6 @@ int menu(){
 
 	   		 	gameTwoPlayer();
 
-				MLV_wait_milliseconds(5000);
-
 	   			MLV_free_window();
 
 	   		   	return 1;
