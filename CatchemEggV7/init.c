@@ -211,7 +211,44 @@ int menu(){
 
       if(x >= 280 && x <= 433 && y >= 478 && y <= 520){
 
+  	MLV_free_image(background); 
 
+		background = MLV_load_image("regle.png");
+
+		/* On affiche l'image */
+  
+		MLV_draw_image(background, 0, 0);
+  
+		/* Met à jour l'affichage */
+  
+		MLV_actualise_window();
+
+		MLV_wait_milliseconds(1000);
+
+
+		
+
+		if(x >= 280 && x <= 433 && y >= 478 && y <= 520){
+
+	      	/* Supprime le background qui a été crée */
+
+	      	MLV_free_image(background);
+
+	    	/* On charge en mémoire le background du regle */
+
+	      	background = MLV_load_image("BackgroundMenu.png");
+
+	      	/* On affiche l'image */
+  
+	      	MLV_draw_image(background, 0, 0);
+  
+	      	/* Met à jour l'affichage */
+  
+	      	MLV_actualise_window();
+
+	      	sortie_joueur = 1;
+
+	    	}
 
       }
     }
