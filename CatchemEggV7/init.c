@@ -9,7 +9,7 @@
 int menu(){
 
   int width = 446, height = 676;
-  int x, y, sortie_joueur;
+  int x, y, sortie_joueur, sortie_regle;
 
   int sortie_menu = 0;
 
@@ -38,6 +38,7 @@ int menu(){
   do{
     
     sortie_joueur = 0;
+    sortie_regle = 0;
     
     /* Position de la souris */
 
@@ -157,7 +158,7 @@ int menu(){
 
 	  	}
 
-	}while(!sortie_joueur);
+		}while(!sortie_joueur);
 
       }
 
@@ -193,17 +194,17 @@ int menu(){
 
       if(x >= 75 && x <= 372 && y >= 340 && y <= 410){
 
-	/* Supprime le background qui a été crée */
+		/* Supprime le background qui a été crée */
   
-	MLV_free_image(background); 
+		MLV_free_image(background); 
 
-	/* Ferme la fenêtre */
+		/* Ferme la fenêtre */
   
-	MLV_free_window();
+		MLV_free_window();
 
-	return 0;
+		return 0;
 
-	sortie_menu = 1;
+		sortie_menu = 1;
 
       }
 
@@ -211,7 +212,7 @@ int menu(){
 
       if(x >= 280 && x <= 433 && y >= 478 && y <= 520){
 
-  	MLV_free_image(background); 
+  		MLV_free_image(background); 
 
 		background = MLV_load_image("regle.png");
 
@@ -223,32 +224,39 @@ int menu(){
   
 		MLV_actualise_window();
 
-		MLV_wait_milliseconds(1000);
+		do{
 
+		  	/* Position de la souris */
 
+		  	MLV_get_mouse_position(&x, &y);
+
+		  	if(MLV_get_mouse_button_state(MLV_BUTTON_LEFT) == MLV_PRESSED){
 		
 
-		if(x >= 280 && x <= 433 && y >= 478 && y <= 520){
+			if(x >= 0 && x <= 140 && y >= 600 && y <= 675){
 
-	      	/* Supprime le background qui a été crée */
+	      		/* Supprime le background qui a été crée */
 
-	      	MLV_free_image(background);
+	      		MLV_free_image(background);
 
-	    	/* On charge en mémoire le background du regle */
+	    		/* On charge en mémoire le background du regle */
 
-	      	background = MLV_load_image("BackgroundMenu.png");
+	      		background = MLV_load_image("BackgroundMenu.png");
 
-	      	/* On affiche l'image */
+	      		/* On affiche l'image */
+  	
+	      		MLV_draw_image(background, 0, 0);
   
-	      	MLV_draw_image(background, 0, 0);
+	      		/* Met à jour l'affichage */
   
-	      	/* Met à jour l'affichage */
-  
-	      	MLV_actualise_window();
+	      		MLV_actualise_window();
 
-	      	sortie_joueur = 1;
+	      		sortie_regle = 1;
 
 	    	}
+	    }
+
+	    }while(!sortie_regle);
 
       }
     }

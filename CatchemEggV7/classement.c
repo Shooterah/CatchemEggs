@@ -8,11 +8,12 @@
 void classement(){
 
 	int sortie = 0;
-	int x, y, j;
+	int x, y;
 	int i = 120;
 	char c;
 	char data[100];
   int j = 0;
+  int tmp = 0;
 
 	FILE* fichier;
 
@@ -42,7 +43,7 @@ void classement(){
 
     /******************** Les données *************************/
 
-    fichier = fopen("save.txt", "r");
+    fichier = fopen("classement.txt", "r");
 
       if(!fichier){
 
@@ -56,25 +57,23 @@ void classement(){
 
       else{
 
-        while(j <= 3){
+      while(fgets(data, 255, fichier) != NULL){
 
-          while(fgets(data, 255, fichier) != NULL){
+        if(j <= 2){
 
-          i = i + 50;
+        i = i + 50;
 
-           MLV_draw_text(150, i, data, MLV_COLOR_BLACK);
+        MLV_draw_text(150, i, data, MLV_COLOR_BLACK);
 
-           j++;
+        j++;
 
-          }
+        }
+        
+        else{
 
-       }
+         i = 530 + tmp;
 
-       i = 500;
-
-       while(fgets(data, 255, fichier) != NULL){
-
-         i = i + 50;
+         tmp = tmp + 50;
 
          MLV_draw_text(150, i, data, MLV_COLOR_BLACK);
 
@@ -83,6 +82,7 @@ void classement(){
         MLV_actualise_window();
 
       }
+    }
 
 
 
