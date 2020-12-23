@@ -22,13 +22,13 @@ typedef struct{
 
 
 
-void gameOnePlayer();
+void gameOnePlayer(int charge);
 
-void gameTwoPlayer();
+void gameTwoPlayer(int charge);
 
-void gameThreePlayer();
+void gameThreePlayer(int charge);
 
-void gameFourPlayer();
+void gameFourPlayer(int charge);
 
 int fallEggs(MLV_Image *background, MLV_Image *posJoueur, Player joueur1);
 

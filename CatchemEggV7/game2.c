@@ -7,28 +7,28 @@
 #include "init.h"
 #include <time.h>
 
-void gameTwoPlayer(){
+void gameTwoPlayer(int charge){
 
+  FILE *fichier1;
 	int sortie_jeu = 0;
+  int nb_joueur;
+  Player joueur1;
+  Player joueur2;
+  MLV_Image *background;
+  MLV_Image *posJoueur1;
+  MLV_Image *posJoueur2;
+
+  if(charge == 0){ /********* Si on ne charge pas de partie ********/
 
   	/* On initialise le Joueur 1 et 2 */
 
-  	Player joueur1;
-  	Player joueur2;
-
-  	strcpy(joueur1.pseudo, "Joueur 1");
-  	strcpy(joueur1.pseudo, "Joueur 2");
+  	strcpy(joueur1.pseudo, "Joueur1");
+  	strcpy(joueur2.pseudo, "Joueur2");
 
   	joueur1.score = 0;
   	joueur1.fail = 5;
   	joueur2.score = 0;
   	joueur2.fail = 5;
-
-  	/* On charge le fond et la fenêtre du jeu */
-
-  	MLV_Image *background;
-  	MLV_Image *posJoueur1;
-  	MLV_Image *posJoueur2;
 
   	/* On créer et affiche la fenêtre de jeu */
 
@@ -64,8 +64,51 @@ void gameTwoPlayer(){
 
 }
 
+else{ /********* Si on charge une partie *********/
+
+      fichier1 = fopen("save.txt", "r");
+
+      fscanf(fichier1, "%d %s %d %d %s %d %d", &nb_joueur, &joueur1.pseudo, &joueur1.score, &joueur1.fail, &joueur2.pseudo, &joueur2.score, &joueur2.fail);
+     
+      fclose(fichier1);
+
+      /* On créer et affiche la fenêtre de jeu */
+
+      MLV_create_window("CatchemEgg - 2 Joueurs", "Background_2J", 640, 720);
+
+     /* On charge en mémoire le background du jeu */
+
+     background = MLV_load_image("2Joueur.png");
+
+     /* On affiche l'image */
+  
+     MLV_draw_image(background, 0, 0);
+  
+      /* Met à jour l'affichage */
+    
+     MLV_actualise_window();
+
+      while(1){
+
+        if(!sortie_jeu){
+
+        sortie_jeu = fallEggs2(background, posJoueur1, posJoueur2, joueur1, joueur2);
+
+       }
+
+        else{
+
+          return;
+
+        }
+      }
+    }
+
+}
+
 int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur2, Player joueur1, Player joueur2){
 
+  FILE *fichier;
 	MLV_Image *Oeuf1;
 	MLV_Image *Oeuf2;
 
@@ -95,6 +138,38 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
     	posOeuf2(x_Oeuf);
 
     	for(i=0; i<720; i = i + 1 + speed){ /* Chute des oeufs avec la vitesse */
+
+      /****************** Sauvegarde ********************/
+
+      MLV_get_mouse_position(&xs, &ys);
+
+      if(MLV_get_mouse_button_state(MLV_BUTTON_LEFT) == MLV_PRESSED){
+
+        if(xs >= 246 && xs <= 400 && ys >= 670 && ys <= 710){
+
+        /* Ouvrir en écriture = éffacer l'ancienne sauvegarde */
+
+        fichier = fopen("save.txt", "w");
+        fputc('2', fichier);  /* Cb de joueur */
+        fputc(' ', fichier); /* Délimiteur des paramètres */
+        fputs(joueur1.pseudo, fichier); /* Pseudos du joueur1 */
+        fputc(' ', fichier); /* Délimiter des paramètres */
+        fputs(score1, fichier); /* Score du joueur1 */
+        fputc(' ', fichier); /* Délimiter des paramètres */
+        fputs(fail1, fichier); /* Nb de fail du joueur1 */
+        fputc(' ', fichier); /* Délimiteur des paramètres */
+        fputs(joueur2.pseudo, fichier); /* Pseudos du joueur2 */
+        fputc(' ', fichier); /* Délimiter des paramètres */
+        fputs(score2, fichier); /* Score du joueur2 */
+        fputc(' ', fichier); /* Délimiter des paramètres */
+        fputs(fail2, fichier); /* Nb de fail du joueur2 */
+        fclose(fichier);
+
+        return 1;
+
+        }
+
+      }
 
     		getPose2(background, posJoueur1, posJoueur2, coord); /* Position J1 et J2 par rapport aux touche */
 

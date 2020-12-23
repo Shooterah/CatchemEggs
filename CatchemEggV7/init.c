@@ -8,6 +8,9 @@
 
 int menu(){
 
+  FILE *fichier;
+  char c;
+
   int width = 446, height = 676;
   int x, y, sortie_joueur, sortie_regle;
 
@@ -116,7 +119,7 @@ int menu(){
   
 	  		    MLV_free_window();
 
-	    		gameOnePlayer();
+	    		gameOnePlayer(0);
 
 	   		   	MLV_free_window();
 
@@ -134,7 +137,7 @@ int menu(){
   
 	  			MLV_free_window();
 
-	   		 	gameTwoPlayer();
+	   		 	gameTwoPlayer(0);
 
 	   			MLV_free_window();
 
@@ -166,7 +169,44 @@ int menu(){
 
       if(x >= 75 && x <= 372 && y >= 118 && y <= 190){
 
+      	fichier = fopen("save.txt", "r"); /* On regarde pour combien de joueur la partie est */
 
+      	c = fgetc(fichier);
+
+      	fclose(fichier);
+
+      	if(c == '1'){ /* Jeu 1 joueur en chargeant */
+
+      		/* Supprime le background qui a été crée */
+  
+	      		MLV_free_image(background); 
+
+	   		   	/* Ferme la fenêtre */
+  
+	  		    MLV_free_window();
+
+	    		gameOnePlayer(1);
+
+	   		   	MLV_free_window();
+
+	      		return 1;
+
+      	}
+      	else if(c == '2'){ /* Jeu 2 joueurs en chargeant */
+
+      		MLV_free_image(background); 
+
+	   			/* Ferme la fenêtre */
+  
+	  			MLV_free_window();
+
+	   		 	gameTwoPlayer(1);
+
+	   			MLV_free_window();
+
+	   		   	return 1;
+
+      	}
 
       }
 

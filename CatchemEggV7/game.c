@@ -8,60 +8,106 @@
 #include <time.h>
 
 
-void gameOnePlayer(){
+void gameOnePlayer(int charge){
 
+  FILE *fichier1;
+  char c;
+  int i = 0;
+  char score[10];
   int sortie_jeu = 0;
-
-  /* On initialise le Joueur 1 */
-
   Player joueur1;
-
-  strcpy(joueur1.pseudo, "Joueur 1");
-
-  joueur1.score = 0;
-  joueur1.fail = 5;
-
-  /* On charge le fond et la fenêtre du jeu */
-
   MLV_Image *background;
   MLV_Image *posJoueur;
+  int nb_joueur;
 
-  /* On créer et affiche la fenêtre de jeu */
 
-  MLV_create_window("CatchemEgg - 1 Joueur", "Background_1J", 320, 720);
+  if(charge == 0){ /********* Si on ne charge pas de partie ********/
 
-  /* On charge en mémoire le background du jeu */
+    
+    /* On initialise le Joueur 1 */
 
-  background = MLV_load_image("1Joueur.png");
+    strcpy(joueur1.pseudo, "Joueur1");
 
-  /* On affiche l'image */
+    joueur1.score = 0;
+    joueur1.fail = 5;
+
+    /* On créer et affiche la fenêtre de jeu */
+
+    MLV_create_window("CatchemEgg - 1 Joueur", "Background_1J", 320, 720);
+
+    /* On charge en mémoire le background du jeu */
+
+    background = MLV_load_image("1Joueur.png");
+
+    /* On affiche l'image */
   
-  MLV_draw_image(background, 0, 0);
+    MLV_draw_image(background, 0, 0);
   
-  /* Met à jour l'affichage */
+    /* Met à jour l'affichage */
   
-  MLV_actualise_window();
+    MLV_actualise_window();
 
-  while(1){
+    while(1){
 
-    if(!sortie_jeu){
+      if(!sortie_jeu){
 
-      sortie_jeu = fallEggs(background, posJoueur, joueur1);
+        sortie_jeu = fallEggs(background, posJoueur, joueur1);
+
+      }
+
+      else{
+
+        return;
+
+      }
 
     }
-
-    else{
-
-      return;
-
-    }
-
   }
+  else{ /********* Si on charge une partie *********/
 
-}
+      fichier1 = fopen("save.txt", "r");
+
+      fscanf(fichier1, "%d %s %d %d", &nb_joueur, &joueur1.pseudo, &joueur1.score, &joueur1.fail);
+     
+      fclose(fichier1);
+
+      /* On créer et affiche la fenêtre de jeu */
+
+     MLV_create_window("CatchemEgg - 1 Joueur", "Background_1J", 320, 720);
+
+     /* On charge en mémoire le background du jeu */
+
+     background = MLV_load_image("1Joueur.png");
+
+     /* On affiche l'image */
+  
+     MLV_draw_image(background, 0, 0);
+  
+      /* Met à jour l'affichage */
+    
+     MLV_actualise_window();
+
+      while(1){
+
+        if(!sortie_jeu){
+
+         sortie_jeu = fallEggs(background, posJoueur, joueur1);
+
+       }
+
+        else{
+
+          return;
+
+        }
+      }
+    }
+  }
 
 
 int fallEggs(MLV_Image *background, MLV_Image *posJoueur, Player joueur1){
+
+  FILE *fichier;
 
   MLV_Image *Oeuf1;
 
@@ -79,12 +125,42 @@ int fallEggs(MLV_Image *background, MLV_Image *posJoueur, Player joueur1){
 
   x_Oeuf = posOeuf(); /* Coordoné random a l'oeuf */
 
+  fprintf(stdout, joueur1.pseudo);
+
   while(!sortie){
+
+    /************** Jeu *************/
 
     sprintf(score1, "%d", joueur1.score);
     sprintf(fail1, "%d", joueur1.fail);
 
     for(i=0; i<720; i = i + 1 + speed){ /* Chute de l'oeuf avec la vitesse */
+
+    /****************** Sauvegarde ********************/
+
+    MLV_get_mouse_position(&xs, &ys);
+
+    if(MLV_get_mouse_button_state(MLV_BUTTON_LEFT) == MLV_PRESSED){
+
+      if(xs >= 100 && xs <= 245 && ys >= 14 && ys <= 50){
+
+        /* Ouvrir en écriture = éffacer l'ancienne sauvegarde */
+
+        fichier = fopen("save.txt", "w");
+        fputc('1', fichier);  /* Cb de joueur */
+        fputc(' ', fichier); /* Délimiteur des paramètres */
+        fputs(joueur1.pseudo, fichier); /* Pseudos du joueur */
+        fputc(' ', fichier); /* Délimiter des paramètres */
+        fputs(score1, fichier); /* Score du joueur */
+        fputc(' ', fichier); /* Délimiter des paramètres */
+        fputs(fail1, fichier); /* Nb de fail du joueur */
+        fclose(fichier);
+
+        return 1;
+
+      }
+
+    }
     
       x_Joueur = getPose(background, posJoueur);
 
