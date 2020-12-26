@@ -30,9 +30,9 @@ void gameThreePlayer(int charge);
 
 void gameFourPlayer(int charge);
 
-int fallEggs(MLV_Image *background, MLV_Image *posJoueur, Player joueur1);
+int fallEggs(MLV_Image *background, Player joueur1);
 
-int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur2, Player joueur1, Player joueur2);
+int fallEggs2(MLV_Image *background, Player joueur1, Player joueur2);
 
 int posOeuf(void);
 

@@ -14,11 +14,11 @@ void gameOnePlayer(int charge){
   int sortie_jeu = 0;
   Player joueur1;
   MLV_Image *background;
-  MLV_Image *posJoueur;
   int nb_joueur;
 
-  posJoueur = MLV_load_image("Leveinard_gauche_penche.png");
+  /* On créer et affiche la fenêtre de jeu */
 
+  MLV_create_window("CatchemEgg - 1 Joueur", "Background_1J", 320, 720);
 
   if(charge == 0){ /********* Si on ne charge pas de partie ********/
 
@@ -29,10 +29,6 @@ void gameOnePlayer(int charge){
 
     joueur1.score = 0;
     joueur1.fail = 5;
-
-    /* On créer et affiche la fenêtre de jeu */
-
-    MLV_create_window("CatchemEgg - 1 Joueur", "Background_1J", 320, 720);
 
     /* On charge en mémoire le background du jeu */
 
@@ -50,7 +46,7 @@ void gameOnePlayer(int charge){
 
       if(!sortie_jeu){
 
-        sortie_jeu = fallEggs(background, posJoueur, joueur1);
+        sortie_jeu = fallEggs(background, joueur1);
 
       }
 
@@ -73,10 +69,6 @@ void gameOnePlayer(int charge){
      
       fclose(fichier1);
 
-      /* On créer et affiche la fenêtre de jeu */
-
-     MLV_create_window("CatchemEgg - 1 Joueur", "Background_1J", 320, 720);
-
      /* On charge en mémoire le background du jeu */
 
      background = MLV_load_image("1Joueur.png");
@@ -93,7 +85,7 @@ void gameOnePlayer(int charge){
 
         if(!sortie_jeu){
 
-         sortie_jeu = fallEggs(background, posJoueur, joueur1);
+         sortie_jeu = fallEggs(background, joueur1);
 
        }
 
@@ -107,11 +99,12 @@ void gameOnePlayer(int charge){
   }
 
 
-int fallEggs(MLV_Image *background, MLV_Image *posJoueur, Player joueur1){
+int fallEggs(MLV_Image *background, Player joueur1){
 
   FILE *fichier;
 
   MLV_Image *Oeuf1;
+  MLV_Image *posJoueur;
 
   int i, x_Oeuf, x_Joueur;
   
@@ -175,8 +168,6 @@ int fallEggs(MLV_Image *background, MLV_Image *posJoueur, Player joueur1){
       MLV_actualise_window();
 
       MLV_free_image(Oeuf1);
-
-      MLV_free_image(posJoueur);
 
       MLV_free_image(background);
 

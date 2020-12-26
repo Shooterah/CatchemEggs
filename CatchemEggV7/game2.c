@@ -15,11 +15,10 @@ void gameTwoPlayer(int charge){
   Player joueur1;
   Player joueur2;
   MLV_Image *background;
-  MLV_Image *posJoueur1;
-  MLV_Image *posJoueur2;
 
-  posJoueur1 = MLV_load_image("Leveinard_gauche_penche.png");
-  posJoueur2 = MLV_load_image("Leveinard_gauche_penche.png");
+  /* On créer et affiche la fenêtre de jeu */
+
+  MLV_create_window("CatchemEgg - 2 Joueurs", "Background_2J", 640, 720);
 
   if(charge == 0){ /********* Si on ne charge pas de partie ********/
 
@@ -32,10 +31,6 @@ void gameTwoPlayer(int charge){
   	joueur1.fail = 5;
   	joueur2.score = 0;
   	joueur2.fail = 5;
-
-  	/* On créer et affiche la fenêtre de jeu */
-
-  	MLV_create_window("CatchemEgg - 2 Joueurs", "Background_2J", 640, 720);
 
   	/* On charge en mémoire le background du jeu */
 
@@ -53,7 +48,7 @@ void gameTwoPlayer(int charge){
 
     if(!sortie_jeu){
 
-      sortie_jeu = fallEggs2(background, posJoueur1, posJoueur2, joueur1, joueur2);
+      sortie_jeu = fallEggs2(background, joueur1, joueur2);
 
     }
 
@@ -77,10 +72,6 @@ else{ /********* Si on charge une partie *********/
      
       fclose(fichier1);
 
-      /* On créer et affiche la fenêtre de jeu */
-
-      MLV_create_window("CatchemEgg - 2 Joueurs", "Background_2J", 640, 720);
-
      /* On charge en mémoire le background du jeu */
 
      background = MLV_load_image("2Joueur.png");
@@ -97,7 +88,7 @@ else{ /********* Si on charge une partie *********/
 
         if(!sortie_jeu){
 
-        sortie_jeu = fallEggs2(background, posJoueur1, posJoueur2, joueur1, joueur2);
+        sortie_jeu = fallEggs2(background, joueur1, joueur2);
 
        }
 
@@ -111,11 +102,13 @@ else{ /********* Si on charge une partie *********/
 
 }
 
-int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur2, Player joueur1, Player joueur2){
+int fallEggs2(MLV_Image *background, Player joueur1, Player joueur2){
 
   FILE *fichier;
 	MLV_Image *Oeuf1;
 	MLV_Image *Oeuf2;
+  MLV_Image *posJoueur1 = NULL;
+  MLV_Image *posJoueur2 = NULL;
 
 	int i, sortie_jeu, xs, ys;
 
@@ -194,8 +187,6 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 
     		MLV_free_image(Oeuf1);
     		MLV_free_image(Oeuf2);
-    		MLV_free_image(posJoueur1);
-    		MLV_free_image(posJoueur2);
     		MLV_free_image(background);
 
     		background = MLV_load_image("2Joueur.png");
