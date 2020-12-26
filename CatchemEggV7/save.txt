@@ -1,1 +1,1 @@
-2 Joueur1 5 5 Joueur2 5 5
+2 Joueur1 5 4 Joueur2 10 5

@@ -9,6 +9,8 @@
 int main(int argc, char *argv[]){
 
   int jeu = 1;
+  (void)argv;  /* Pour pas avoir unused parameters */
+  (void)argc; /* Pour pas avoir unused parameters */
 
   while(jeu){
 

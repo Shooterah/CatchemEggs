@@ -9,11 +9,11 @@ void classement(){
 
 	int sortie = 0;
 	int x, y;
-	int i = 120;
-	char c;
+	int i = 140;
 	char data[100];
   int j = 0;
   int tmp = 0;
+  char *p;
 
 	FILE* fichier;
 
@@ -57,13 +57,17 @@ void classement(){
 
       else{
 
-      while(fgets(data, 255, fichier) != NULL){
+      while(fgets(data, 60, fichier) != NULL){
 
-        if(j <= 2){
+        if(j <= 4){
 
-        i = i + 50;
+        i = i + 30;
 
-        MLV_draw_text(150, i, data, MLV_COLOR_BLACK);
+        if((p = strchr(data, '\n')) != NULL){
+          *p = '\0';
+        }
+
+        MLV_draw_text(140, i, data, MLV_COLOR_BLACK);
 
         j++;
 
@@ -71,12 +75,20 @@ void classement(){
         
         else{
 
-         i = 530 + tmp;
+          if(j < 10){
 
-         tmp = tmp + 50;
+            i = 510 + tmp;
 
-         MLV_draw_text(150, i, data, MLV_COLOR_BLACK);
+            tmp = tmp + 30;
 
+            if((p = strchr(data, '\n')) != NULL){
+              *p = '\0';
+            }
+
+            MLV_draw_text(140, i, data, MLV_COLOR_BLACK);
+            j++;
+
+          }
         }
 
         MLV_actualise_window();

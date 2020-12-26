@@ -1,6 +1,11 @@
-Berthoix                            250
-Flof                                240
-Joeffrey                            220
-Mathieux                            200
-Raillard                            190
-Mme Morvant                         180
+250                            Florian
+240                            Jean
+200                            Quentin
+195                            Joeffrey
+195                            Mme Morvant
+190                            Mathieu
+180                            Macron
+160                            Castex
+100                            Darmamin
+60                             Francis Cabrel
+50                             Gru

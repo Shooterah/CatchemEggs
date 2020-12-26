@@ -18,6 +18,9 @@ void gameTwoPlayer(int charge){
   MLV_Image *posJoueur1;
   MLV_Image *posJoueur2;
 
+  posJoueur1 = MLV_load_image("Leveinard_gauche_penche.png");
+  posJoueur2 = MLV_load_image("Leveinard_gauche_penche.png");
+
   if(charge == 0){ /********* Si on ne charge pas de partie ********/
 
   	/* On initialise le Joueur 1 et 2 */
@@ -68,7 +71,9 @@ else{ /********* Si on charge une partie *********/
 
       fichier1 = fopen("save.txt", "r");
 
-      fscanf(fichier1, "%d %s %d %d %s %d %d", &nb_joueur, &joueur1.pseudo, &joueur1.score, &joueur1.fail, &joueur2.pseudo, &joueur2.score, &joueur2.fail);
+      if(fscanf(fichier1, "%d %s %d %d %s %d %d", &nb_joueur, joueur1.pseudo, &joueur1.score, &joueur1.fail, joueur2.pseudo, &joueur2.score, &joueur2.fail) != 7){
+        return;
+      }
      
       fclose(fichier1);
 
@@ -119,10 +124,10 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 	int tmp = 0;
 	int test = 0;
 
-	char score1[10];
-  	char fail1[10];
-  	char score2[10];
-  	char fail2[10];
+	char score1[12];
+  	char fail1[12];
+  	char score2[12];
+  	char fail2[12];
 
   	int coord[2] = {0, 0};
   	int x_Oeuf[2] = {0, 0};
@@ -139,7 +144,7 @@ int fallEggs2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur
 
     	for(i=0; i<720; i = i + 1 + speed){ /* Chute des oeufs avec la vitesse */
 
-      /****************** Sauvegarde ********************/
+      /***************** Sauvegarde *******************/
 
       MLV_get_mouse_position(&xs, &ys);
 
@@ -651,7 +656,7 @@ int getPose2(MLV_Image *background, MLV_Image *posJoueur1, MLV_Image *posJoueur2
       coord[1] = 560;
 
     }
-  
+  return 0;
 }
 
 

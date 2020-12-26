@@ -11,14 +11,13 @@
 void gameOnePlayer(int charge){
 
   FILE *fichier1;
-  char c;
-  int i = 0;
-  char score[10];
   int sortie_jeu = 0;
   Player joueur1;
   MLV_Image *background;
   MLV_Image *posJoueur;
   int nb_joueur;
+
+  posJoueur = MLV_load_image("Leveinard_gauche_penche.png");
 
 
   if(charge == 0){ /********* Si on ne charge pas de partie ********/
@@ -67,7 +66,10 @@ void gameOnePlayer(int charge){
 
       fichier1 = fopen("save.txt", "r");
 
-      fscanf(fichier1, "%d %s %d %d", &nb_joueur, &joueur1.pseudo, &joueur1.score, &joueur1.fail);
+      if(fscanf(fichier1, "%d %s %d %d", &nb_joueur, joueur1.pseudo, &joueur1.score, &joueur1.fail) != 4){
+
+        return;
+      }
      
       fclose(fichier1);
 
@@ -120,12 +122,10 @@ int fallEggs(MLV_Image *background, MLV_Image *posJoueur, Player joueur1){
   int test = 0;
   int xs, ys;
 
-  char score1[10];
-  char fail1[10];
+  char score1[12];
+  char fail1[12];
 
   x_Oeuf = posOeuf(); /* Coordoné random a l'oeuf */
-
-  fprintf(stdout, joueur1.pseudo);
 
   while(!sortie){
 

@@ -17,6 +17,6 @@ game2.o: game2.c game.h
 classement.o: classement.c classement.h
 	gcc -W -Wall -std=c89 -pedantic -O3 `pkg-config --cflags MLV` `pkg-config --libs-only-other --libs-only-L MLV` -c classement.c `pkg-config --libs-only-l MLV` -o classement.o
 
-clean :
-	rm *.o
+clean:
+	rm -f *.o *~
 

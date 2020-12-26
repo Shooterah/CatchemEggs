@@ -16,8 +16,6 @@ int menu(){
 
   int sortie_menu = 0;
 
-  int finish = 0;
-
   MLV_Image *background;
 
   /* On créé et affiche le menu */
@@ -301,4 +299,5 @@ int menu(){
       }
     }
   } while(!sortie_menu);
+  return 0;
 }
