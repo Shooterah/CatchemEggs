@@ -22,6 +22,6 @@ Le jeu 1 Joueur fonctionne a 100% et choix rejouer ou menu.
 Le jeu 2 Joueur fonctionne a 100% et choix rejouer ou menu.
 
 ### V7
-Ajout de la page de classement ainsi que lecture d'un fichier de sauvegarde (Marche pas encore).
+Ajout de la page de classement ainsi que lecture d'un fichier de sauvegarde.
 
 
