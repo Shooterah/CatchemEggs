@@ -20,19 +20,17 @@ void gameOnePlayer(int charge){
 
   MLV_create_window("CatchemEgg - 1 Joueur", "Background_1J", 320, 720);
 
+  /* On charge en mémoire le background du jeu */
+
+  background = MLV_load_image("1Joueur.png");
+
   if(charge == 0){ /********* Si on ne charge pas de partie ********/
 
     
     /* On initialise le Joueur 1 */
 
-    strcpy(joueur1.pseudo, "Joueur1");
-
     joueur1.score = 0;
     joueur1.fail = 5;
-
-    /* On charge en mémoire le background du jeu */
-
-    background = MLV_load_image("1Joueur.png");
 
     /* On affiche l'image */
   
@@ -41,6 +39,12 @@ void gameOnePlayer(int charge){
     /* Met à jour l'affichage */
   
     MLV_actualise_window();
+
+    /* Choix du pseudos */
+
+    MLV_wait_input_box(30, 100, 260, 60, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, "Pseudos : ", &joueur1.pseudo);
+
+
 
     while(1){
 
@@ -58,28 +62,26 @@ void gameOnePlayer(int charge){
 
     }
   }
-  else{ /********* Si on charge une partie *********/
+  else{ 
+
+      /********* Si on charge une partie *********/
 
       fichier1 = fopen("save.txt", "r");
 
-      if(fscanf(fichier1, "%d %s %d %d", &nb_joueur, joueur1.pseudo, &joueur1.score, &joueur1.fail) != 4){
+      if(fscanf(fichier1, "%d %s %d %d", &nb_joueur, (char*)&joueur1.pseudo, &joueur1.score, &joueur1.fail) != 4){
 
         return;
       }
      
       fclose(fichier1);
 
-     /* On charge en mémoire le background du jeu */
-
-     background = MLV_load_image("1Joueur.png");
-
      /* On affiche l'image */
   
-     MLV_draw_image(background, 0, 0);
+    MLV_draw_image(background, 0, 0);
   
-      /* Met à jour l'affichage */
-    
-     MLV_actualise_window();
+    /* Met à jour l'affichage */
+  
+    MLV_actualise_window();
 
       while(1){
 
@@ -164,6 +166,8 @@ int fallEggs(MLV_Image *background, Player joueur1){
       MLV_draw_text(60, 50, score1, MLV_COLOR_WHITE);
 
       MLV_draw_text(265, 50, fail1, MLV_COLOR_WHITE);
+
+     
 
       MLV_actualise_window();
 

@@ -6,7 +6,7 @@
 
 typedef struct{
 
-  char pseudo[20];
+  char *pseudo;
   int score;
   int x,y;
   int fail;

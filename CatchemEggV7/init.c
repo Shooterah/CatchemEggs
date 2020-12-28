@@ -12,7 +12,7 @@ int menu(){
   char c;
 
   int width = 446, height = 676;
-  int x, y, sortie_joueur, sortie_regle;
+  int x, y, xs, ys, sortie_joueur, sortie_regle;
 
   int sortie_menu = 0;
 
@@ -75,7 +75,7 @@ int menu(){
 
 		  /* Position de la souris */
 
-		  MLV_get_mouse_position(&x, &y);
+		  MLV_get_mouse_position(&xs, &ys);
     
 		  /* Si on clique */
     
@@ -83,7 +83,7 @@ int menu(){
 
 		    /* Si bouton retour */
 
-	  		if(x >= 280 && x <= 433 && y >= 478 && y <= 520){
+	  		if(xs >= 280 && xs <= 433 && ys >= 478 && ys <= 520){
 
 	      	/* Supprime le background qui a été crée */
 
@@ -107,7 +107,7 @@ int menu(){
 
 	    	/* Si bouton 1 Joueur */
 
-	    	if(x >= 75 && x <= 372 && y >= 26 && y <= 100){
+	    	if(xs >= 75 && xs <= 372 && ys >= 26 && ys <= 100){
 
 	      		/* Supprime le background qui a été crée */
   
@@ -127,7 +127,7 @@ int menu(){
 
 		    /* Si bouton 2 Joueur */
 
-		    if(x >= 75 && x <= 372 && y >= 118 && y <= 190){
+		    if(xs >= 75 && xs <= 372 && ys >= 118 && ys <= 190){
 
 	  		  	MLV_free_image(background); 
 
@@ -145,14 +145,14 @@ int menu(){
 
 	   		/* Si bouton 3 Joueur */
 
-	   		if(x >= 75 && x <= 372 && y >= 210 && y <= 280){
+	   		if(xs >= 75 && xs <= 372 && ys >= 210 && ys <= 280){
 	      
 
 	   		}
 
 	    	/* Si bouton 4 Joueur */
 
-	   	    if(x >= 75 && x <= 372 && y >= 304 && y <= 375){
+	   	    if(xs >= 75 && xs <= 372 && ys >= 304 && ys <= 375){
 	      
 
 	    	}

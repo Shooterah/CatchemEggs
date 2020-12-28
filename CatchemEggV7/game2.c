@@ -24,9 +24,6 @@ void gameTwoPlayer(int charge){
 
   	/* On initialise le Joueur 1 et 2 */
 
-  	strcpy(joueur1.pseudo, "Joueur1");
-  	strcpy(joueur2.pseudo, "Joueur2");
-
   	joueur1.score = 0;
   	joueur1.fail = 5;
   	joueur2.score = 0;
@@ -43,6 +40,11 @@ void gameTwoPlayer(int charge){
   	/* Met à jour l'affichage */
   
   	MLV_actualise_window();
+
+    /* Choix du pseudos */
+
+    MLV_wait_input_box(30, 100, 260, 60, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, "Joueur1 : ", &joueur1.pseudo);
+    MLV_wait_input_box(350, 100, 580, 60, MLV_COLOR_WHITE, MLV_COLOR_WHITE, MLV_COLOR_BLACK, "Joueur2 : ", &joueur2.pseudo);
 
   	while(1){
 
@@ -66,7 +68,7 @@ else{ /********* Si on charge une partie *********/
 
       fichier1 = fopen("save.txt", "r");
 
-      if(fscanf(fichier1, "%d %s %d %d %s %d %d", &nb_joueur, joueur1.pseudo, &joueur1.score, &joueur1.fail, joueur2.pseudo, &joueur2.score, &joueur2.fail) != 7){
+      if(fscanf(fichier1, "%d %s %d %d %s %d %d", &nb_joueur, (char*)&joueur1.pseudo, &joueur1.score, &joueur1.fail, (char*)&joueur2.pseudo, &joueur2.score, &joueur2.fail) != 7){
         return;
       }
      
