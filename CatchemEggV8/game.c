@@ -104,6 +104,7 @@ void gameOnePlayer(int charge){
 int fallEggs(MLV_Image *background, Player joueur1){
 
   FILE *fichier;
+  FILE *fichier2;
 
   MLV_Image *Oeuf1;
   MLV_Image *posJoueur;
@@ -119,6 +120,13 @@ int fallEggs(MLV_Image *background, Player joueur1){
 
   char score1[12];
   char fail1[12];
+
+  int sortie2 = 0;
+  char score_lue[4];
+  int temp = 0;
+  int ligne = 0;
+  int j;
+  char c;
 
   x_Oeuf = posOeuf(); /* Coordoné random a l'oeuf */
 
@@ -203,7 +211,48 @@ int fallEggs(MLV_Image *background, Player joueur1){
     if(joueur1.fail <= 0){
        
       /******************** Game Over *********************/
-  
+
+      /* On regarde a quelle ligne faut mettre le score du joueur en comparant le classement */
+
+      fichier2 = fopen("classement.txt", "r+");
+
+      do{
+        if(fgets(score_lue, 4, fichier2) == NULL){
+          return 0;
+        }
+        fprintf(stdout, "score_lue : %s\n", score_lue); /* */
+        temp = atoi(score_lue);
+        fprintf(stdout, "tmp : %d\n", temp); /* */
+        if(joueur1.score >= temp){
+          sortie2 = 1;
+        }
+        else{
+          do{
+            c = fgetc(fichier2);
+          }while(c != '\n');
+          ligne++;
+        }
+      }while(!sortie2);
+      fclose(fichier2);
+      ligne++;
+
+      fprintf(stdout, "Ligne : %d\n", ligne); /* */
+
+      /* On insère le score et le pseudos a la bonne ligne */
+
+      fichier2 = fopen("classement.txt", "r+");
+
+      for(j=0; j<ligne-1; j++){
+        do{
+          c = fgetc(fichier2);
+        }while(c != '\n');
+        i++;
+      }
+
+      strcat(joueur1.pseudo, " \n");
+
+      fprintf(fichier2, "%d                            %s", joueur1.score, joueur1.pseudo);
+      fclose(fichier2);
 
       MLV_free_image(background);
 

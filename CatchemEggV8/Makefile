@@ -1,3 +1,4 @@
+all: CatchemEggV8 clean
 
 CatchemEggV8: main.o init.o game.o game2.o classement.o
 	gcc -W -Wall -std=c89 -pedantic -O3 `pkg-config --cflags MLV` `pkg-config --libs-only-other --libs-only-L MLV` main.o init.o game.o game2.o classement.o `pkg-config --libs-only-l MLV` -o CatchemEggV8
